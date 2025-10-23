@@ -16,5 +16,9 @@ namespace Schedulee.Models
             public string Endereco { get; set; }
             public string CPF { get; set; }
             public string? FotoPerfil { get; set; }
+
+            public List<Postagem> Postagens { get; set; }
+
+
         }
     }

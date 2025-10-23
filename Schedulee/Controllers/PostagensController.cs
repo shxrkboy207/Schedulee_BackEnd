@@ -10,18 +10,33 @@ namespace Schedulee.Controllers
     {
         private readonly AppDbContext _context;
 
-        public PostagensController(AppDbContext context) => _context = context;
-
-        [HttpGet]
-        public async Task<IEnumerable<Postagem>> Get() =>
-            await _context.Postagens.Include(p => p.Usuario).ToListAsync();
+        public PostagensController(AppDbContext context)
+        {
+            _context = context;
+        }
 
         [HttpPost]
-        public async Task<IActionResult> Post(Postagem postagem)
+        public async Task<IActionResult> CriarPost([FromBody] Postagem postagem)
         {
+            var usuario = await _context.Usuarios.FindAsync(postagem.UsuarioId);
+            if (usuario == null)
+                return NotFound("Usuário não encontrado.");
+
             _context.Postagens.Add(postagem);
             await _context.SaveChangesAsync();
+
             return Ok(postagem);
+        }
+
+        [HttpGet("{usuarioId}")]
+        public async Task<IActionResult> GetPostsUsuario(int usuarioId)
+        {
+            var posts = await _context.Postagens
+                .Where(p => p.UsuarioId == usuarioId)
+                .OrderByDescending(p => p.DataPostagem)
+                .ToListAsync();
+
+            return Ok(posts);
         }
     }
 }

@@ -71,5 +71,39 @@ namespace Schedulee.Controllers
             var bytes = sha.ComputeHash(Encoding.UTF8.GetBytes(senha));
             return Convert.ToBase64String(bytes);
         }
+
+        [HttpPost("login")]
+        public async Task<IActionResult> Login([FromBody] Usuario usuario)
+        {
+            var existente = await _context.Usuarios
+                .Include(u => u.Postagens)
+                .FirstOrDefaultAsync(u => u.Email == usuario.Email);
+
+            if (existente == null || existente.Senha != HashSenha(usuario.Senha))
+                return Unauthorized("E-mail ou senha incorretos.");
+
+            return Ok(new
+            {
+                existente.Id,
+                existente.Nome,
+                existente.Email,
+                existente.FotoPerfil,
+                existente.Postagens
+            });
+        }
+
+        [HttpGet("{id}/perfil")]
+        public async Task<IActionResult> GetPerfil(int id)
+        {
+            var usuario = await _context.Usuarios
+                .Include(u => u.Postagens)
+                .FirstOrDefaultAsync(u => u.Id == id);
+
+            if (usuario == null)
+                return NotFound("Usuário não encontrado.");
+
+            return Ok(usuario);
+        }
+
     }
 }
