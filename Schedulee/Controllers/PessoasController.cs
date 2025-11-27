@@ -33,16 +33,8 @@ namespace Schedulee.Controllers
             return Ok(usuario);
         }
 
-        
-        [HttpPost("login")]
-        public async Task<IActionResult> Login([FromBody] Usuario usuario)
-        {
-            var existente = await _context.Usuarios.FirstOrDefaultAsync(u => u.Email == usuario.Email);
-            if (existente == null || existente.Senha != HashSenha(usuario.Senha))
-                return Unauthorized("E-mail ou senha incorretos.");
+       
 
-            return Ok(existente);
-        }
 
         [HttpPost("{id}/foto")]
         public async Task<IActionResult> UploadFoto(int id, IFormFile arquivo)
