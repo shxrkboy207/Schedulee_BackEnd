@@ -1,5 +1,5 @@
 using Microsoft.EntityFrameworkCore;
-using Schedulee.Models;
+using Schedulee.DataBase;
 
 var builder = WebApplication.CreateBuilder(args);
 

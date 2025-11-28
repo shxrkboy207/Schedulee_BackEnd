@@ -12,8 +12,8 @@ using Schedulee.DataBase;
 namespace Schedulee.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20251016012824_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20251128010143_FixUsuarioId")]
+    partial class FixUsuarioId
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -51,7 +51,7 @@ namespace Schedulee.Migrations
                     b.ToTable("Postagens");
                 });
 
-            modelBuilder.Entity("Schedulee.Models.Usuario", b =>
+            modelBuilder.Entity("Usuario", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -91,13 +91,18 @@ namespace Schedulee.Migrations
 
             modelBuilder.Entity("Schedulee.Models.Postagem", b =>
                 {
-                    b.HasOne("Schedulee.Models.Usuario", "Usuario")
-                        .WithMany()
+                    b.HasOne("Usuario", "Usuario")
+                        .WithMany("Postagens")
                         .HasForeignKey("UsuarioId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Usuario");
+                });
+
+            modelBuilder.Entity("Usuario", b =>
+                {
+                    b.Navigation("Postagens");
                 });
 #pragma warning restore 612, 618
         }

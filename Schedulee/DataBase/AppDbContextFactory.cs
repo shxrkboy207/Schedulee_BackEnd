@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 
-namespace Schedulee.Models
+namespace Schedulee.DataBase
 {
     public class AppDbContextFactory : IDesignTimeDbContextFactory<AppDbContext>
     {

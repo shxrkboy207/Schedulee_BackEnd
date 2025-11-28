@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Schedulee.Models;
 
-namespace Schedulee.Models
+namespace Schedulee.DataBase
 {
     public class AppDbContext : DbContext
     {

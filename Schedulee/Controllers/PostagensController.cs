@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Schedulee.DataBase;
 using Schedulee.Models;
 
 namespace Schedulee.Controllers

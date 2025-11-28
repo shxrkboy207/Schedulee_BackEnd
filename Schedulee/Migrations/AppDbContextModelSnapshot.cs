@@ -3,7 +3,8 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Schedulee.Models;
+using Schedulee.DataBase;
+
 
 #nullable disable
 
@@ -47,7 +48,7 @@ namespace Schedulee.Migrations
                     b.ToTable("Postagens");
                 });
 
-            modelBuilder.Entity("Schedulee.Models.Usuario", b =>
+            modelBuilder.Entity("Usuario", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -87,13 +88,18 @@ namespace Schedulee.Migrations
 
             modelBuilder.Entity("Schedulee.Models.Postagem", b =>
                 {
-                    b.HasOne("Schedulee.Models.Usuario", "Usuario")
-                        .WithMany()
+                    b.HasOne("Usuario", "Usuario")
+                        .WithMany("Postagens")
                         .HasForeignKey("UsuarioId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Usuario");
+                });
+
+            modelBuilder.Entity("Usuario", b =>
+                {
+                    b.Navigation("Postagens");
                 });
 #pragma warning restore 612, 618
         }

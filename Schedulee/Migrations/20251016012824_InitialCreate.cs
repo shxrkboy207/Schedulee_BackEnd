@@ -67,6 +67,11 @@ namespace Schedulee.Migrations
 
             migrationBuilder.DropTable(
                 name: "Usuarios");
+
+
+
         }
     }
+
+    
 }

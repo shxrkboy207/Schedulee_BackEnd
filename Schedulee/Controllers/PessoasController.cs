@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Schedulee.DataBase;
 using Schedulee.Models;
 using System.Security.Cryptography;
 using System.Text;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace Schedulee.Controllers
 {
@@ -27,14 +27,14 @@ namespace Schedulee.Controllers
                 return BadRequest("E-mail já cadastrado.");
 
             usuario.Senha = HashSenha(usuario.Senha);
+            // Inicializa lista para evitar erro
+            usuario.Postagens ??= new List<Postagem>();
+
             _context.Usuarios.Add(usuario);
             await _context.SaveChangesAsync();
 
             return Ok(usuario);
         }
-
-       
-
 
         [HttpPost("{id}/foto")]
         public async Task<IActionResult> UploadFoto(int id, IFormFile arquivo)
@@ -60,7 +60,7 @@ namespace Schedulee.Controllers
         private string HashSenha(string senha)
         {
             using var sha = SHA256.Create();
-            var bytes = sha.ComputeHash(Encoding.UTF8.GetBytes(senha));
+            var bytes = sha.ComputeHash(Encoding.UTF8.GetBytes(senha ?? ""));
             return Convert.ToBase64String(bytes);
         }
 
@@ -96,6 +96,5 @@ namespace Schedulee.Controllers
 
             return Ok(usuario);
         }
-
     }
 }
