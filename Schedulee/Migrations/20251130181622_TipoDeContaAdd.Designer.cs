@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Schedulee.DataBase;
 
@@ -10,60 +11,14 @@ using Schedulee.DataBase;
 namespace Schedulee.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20251130181622_TipoDeContaAdd")]
+    partial class TipoDeContaAdd
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "9.0.9");
-
-            modelBuilder.Entity("Schedulee.Models.Contrato", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("AssinaturaContratado")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("AssinaturaContratante")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<int>("ContratadoId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("ContratanteId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<DateTime>("CriadoEm")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int>("PostagemId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Status")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("TempoServico")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Termo")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<decimal>("ValorNegociado")
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("PostagemId");
-
-                    b.ToTable("Contratos");
-                });
 
             modelBuilder.Entity("Schedulee.Models.MeiCadastro", b =>
                 {
@@ -140,6 +95,9 @@ namespace Schedulee.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
+                    b.Property<double>("AvaliacaoMedia")
+                        .HasColumnType("REAL");
+
                     b.Property<string>("Bio")
                         .HasColumnType("TEXT");
 
@@ -170,24 +128,9 @@ namespace Schedulee.Migrations
                     b.Property<string>("Telefone")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("TipoConta")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
                     b.HasKey("Id");
 
                     b.ToTable("Usuarios");
-                });
-
-            modelBuilder.Entity("Schedulee.Models.Contrato", b =>
-                {
-                    b.HasOne("Schedulee.Models.Postagem", "Postagem")
-                        .WithMany()
-                        .HasForeignKey("PostagemId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Postagem");
                 });
 
             modelBuilder.Entity("Schedulee.Models.MeiCadastro", b =>

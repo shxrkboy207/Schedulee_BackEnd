@@ -12,5 +12,10 @@ namespace Schedulee.DataBase
 
         public DbSet<Usuario> Usuarios { get; set; }
         public DbSet<Postagem> Postagens { get; set; }
+
+        public DbSet<MeiCadastro> MeiCadastros { get; set; }
+
+        public DbSet<Contrato> Contratos { get; set; }
+
     }
 }

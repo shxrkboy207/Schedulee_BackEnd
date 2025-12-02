@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Schedulee.DataBase;
 
@@ -10,9 +11,11 @@ using Schedulee.DataBase;
 namespace Schedulee.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20251130213059_NovoBanco")]
+    partial class NovoBanco
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "9.0.9");
@@ -141,9 +144,11 @@ namespace Schedulee.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Bio")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("CPF")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Email")
@@ -151,9 +156,11 @@ namespace Schedulee.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Endereco")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("FotoPerfil")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<bool>("IsMei")
@@ -168,6 +175,7 @@ namespace Schedulee.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Telefone")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("TipoConta")
